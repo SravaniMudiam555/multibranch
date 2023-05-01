@@ -95,26 +95,7 @@ steps
 
 }
 
- stage('ContinuosDelivery')
 
- {
-
- steps
-
-{
-
- script
-
-{
-
- cicd.newDeploy("declarativepipeline", "172.31.5.249", "sharedprod1")
-
- }
-
-
- }
-
- }
 
 }
 
