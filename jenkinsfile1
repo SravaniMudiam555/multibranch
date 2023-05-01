@@ -1,0 +1,124 @@
+@Library('mylib')_
+
+pipeline
+
+{
+
+agent any
+
+stages
+
+ {
+
+ stage('ContinuosDownload')
+
+ {
+
+ steps
+
+ {
+
+script
+
+ {
+
+ cicd.newgit("maven")
+
+ }
+
+
+ }
+
+ }
+
+ stage('ContinuosBuild')
+
+ {
+
+ steps
+
+ {
+
+ script
+
+ {
+
+ cicd.newmaven()
+
+ }
+
+
+ }
+ }
+
+ stage('ContinuosDeployment')
+
+ {
+
+ steps
+
+ {
+
+script
+
+ {
+
+ cicd.newdeploy("declarativepipeline","172.31.6.187","shared1")
+
+ }
+
+
+ }
+
+}
+
+ stage('ContinuosTesting')
+
+ {
+
+steps
+
+ {
+
+ script
+
+ {
+
+ cicd.newgit("FunctionalTesting")
+
+ cicd.newtest("declarativepipeline")
+
+ }
+
+
+ }
+
+}
+
+ stage('ContinuosDelivery')
+
+ {
+
+ steps
+
+{
+
+ script
+
+{
+
+ cicd.newDeploy("declarativepipeline", "172.31.5.249", "sharedprod1")
+
+ }
+
+
+ }
+
+ }
+
+}
+
+}
+
+
+
